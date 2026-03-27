@@ -120,7 +120,7 @@ export default function ContactPage() {
                   <div>
                     <div className="text-xs text-white/50 mb-0.5">Social</div>
                     <div className="font-semibold text-sm">
-                      Follow us on ExternalLink
+                      Follow us on Facebook
                     </div>
                   </div>
                 </a>

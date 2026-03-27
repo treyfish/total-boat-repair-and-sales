@@ -54,7 +54,7 @@ export function Footer() {
               className="inline-flex items-center gap-2 text-sm hover:text-teal-light transition-colors"
             >
               <ExternalLink className="w-5 h-5" />
-              Follow us on ExternalLink
+              Follow us on Facebook
             </a>
           </div>
 

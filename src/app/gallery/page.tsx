@@ -73,12 +73,12 @@ export default function GalleryPage() {
         </Container>
       </section>
 
-      {/* ExternalLink CTA */}
+      {/* Facebook CTA */}
       <section className="py-16">
         <Container>
           <div className="text-center">
             <p className="text-text-muted mb-4">
-              Want to see more? Follow us on ExternalLink for the latest photos and updates.
+              Want to see more? Follow us on Facebook for the latest photos and updates.
             </p>
             <a
               href={BUSINESS.social.facebook}
@@ -87,7 +87,7 @@ export default function GalleryPage() {
               className="inline-flex items-center gap-2 bg-navy text-white font-semibold px-6 py-3 rounded-lg hover:bg-navy-dark transition-colors"
             >
               <ExternalLink className="w-5 h-5" />
-              Follow Us on ExternalLink
+              Follow Us on Facebook
             </a>
           </div>
         </Container>
