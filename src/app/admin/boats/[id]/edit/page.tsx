@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { BoatForm } from "@/components/admin/BoatForm";
+import { requireAuth } from "@/lib/supabase/auth-guard";
 import type { Boat } from "@/lib/types";
 
 async function getBoat(id: string): Promise<Boat | null> {
@@ -21,6 +22,7 @@ export default async function EditBoatPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  await requireAuth();
   const { id } = await params;
   const boat = await getBoat(id);
 

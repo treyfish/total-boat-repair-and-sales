@@ -1,5 +1,6 @@
 import { Ship, MessageSquare, Clock, DollarSign } from "lucide-react";
 import { AdminShell } from "@/components/admin/AdminShell";
+import { requireAuth } from "@/lib/supabase/auth-guard";
 import Link from "next/link";
 
 async function getStats() {
@@ -36,6 +37,7 @@ async function getStats() {
 }
 
 export default async function AdminDashboardPage() {
+  await requireAuth();
   const stats = await getStats();
 
   const cards = [

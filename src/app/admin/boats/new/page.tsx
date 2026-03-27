@@ -1,9 +1,11 @@
 import { AdminShell } from "@/components/admin/AdminShell";
 import { BoatForm } from "@/components/admin/BoatForm";
+import { requireAuth } from "@/lib/supabase/auth-guard";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-export default function NewBoatPage() {
+export default async function NewBoatPage() {
+  await requireAuth();
   return (
     <AdminShell>
       <div className="mb-8">

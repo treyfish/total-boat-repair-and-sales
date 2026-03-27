@@ -1,5 +1,6 @@
 import { AdminShell } from "@/components/admin/AdminShell";
 import { SubmissionTable } from "@/components/admin/SubmissionTable";
+import { requireAuth } from "@/lib/supabase/auth-guard";
 import type { ContactSubmission } from "@/lib/types";
 
 async function getSubmissions(): Promise<ContactSubmission[]> {
@@ -17,6 +18,7 @@ async function getSubmissions(): Promise<ContactSubmission[]> {
 }
 
 export default async function AdminSubmissionsPage() {
+  await requireAuth();
   const submissions = await getSubmissions();
 
   return (

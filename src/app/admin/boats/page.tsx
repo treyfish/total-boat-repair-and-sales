@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Plus } from "lucide-react";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { BoatTable } from "@/components/admin/BoatTable";
+import { requireAuth } from "@/lib/supabase/auth-guard";
 import type { Boat } from "@/lib/types";
 
 async function getBoats(): Promise<Boat[]> {
@@ -19,6 +20,7 @@ async function getBoats(): Promise<Boat[]> {
 }
 
 export default async function AdminBoatsPage() {
+  await requireAuth();
   const boats = await getBoats();
 
   return (
