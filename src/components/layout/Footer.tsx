@@ -145,9 +145,17 @@ export function Footer() {
             &copy; {new Date().getFullYear()} {BUSINESS.legalName}. All rights
             reserved.
           </p>
-          <p className="text-xs text-white/50">
-            Authorized Honda Marine Dealer &bull; Licensed & Insured
-          </p>
+          <div className="flex items-center gap-4">
+            <p className="text-xs text-white/50">
+              Authorized Honda Marine Dealer &bull; Licensed & Insured
+            </p>
+            <Link
+              href="/admin/login"
+              className="text-[10px] text-white/20 hover:text-white/50 transition-colors"
+            >
+              Admin
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
