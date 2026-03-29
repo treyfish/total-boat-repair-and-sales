@@ -16,12 +16,12 @@ export function BoatImageGallery({ photos, name }: BoatImageGalleryProps) {
   return (
     <div>
       {/* Main image */}
-      <div className="relative h-80 md:h-[500px] rounded-2xl overflow-hidden bg-off-white">
+      <div className="relative h-80 md:h-[500px] rounded-2xl overflow-hidden bg-navy-dark">
         <Image
           src={photos[current]}
           alt={`${name} - Photo ${current + 1}`}
           fill
-          className="object-cover"
+          className="object-contain"
         />
         {photos.length > 1 && (
           <>
