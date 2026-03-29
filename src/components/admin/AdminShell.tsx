@@ -113,6 +113,18 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
                 <item.icon className="w-5 h-5" />
               </Link>
             ))}
+            <Link
+              href="/"
+              className="p-2 rounded-lg text-white/50 hover:text-white transition-colors"
+            >
+              <ExternalLink className="w-5 h-5" />
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="p-2 rounded-lg text-white/50 hover:text-red-400 transition-colors"
+            >
+              <LogOut className="w-5 h-5" />
+            </button>
           </div>
         </div>
         <div className="p-6 md:p-10">{children}</div>
