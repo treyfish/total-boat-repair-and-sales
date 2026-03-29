@@ -44,19 +44,25 @@ export function BoatForm({ initialData, isEditing }: BoatFormProps) {
     const files = e.target.files;
     if (!files) return;
     setUploading(true);
+    setError("");
 
     const supabase = createClient();
     const newPhotos: string[] = [];
+    const errors: string[] = [];
 
     for (const file of Array.from(files)) {
+      // Resize large images before upload
+      const processedFile = await resizeImage(file, 1920, 0.85);
       const ext = file.name.split(".").pop();
       const path = `boats/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
 
-      const { error } = await supabase.storage
+      const { error: uploadError } = await supabase.storage
         .from("boat-photos")
-        .upload(path, file);
+        .upload(path, processedFile);
 
-      if (!error) {
+      if (uploadError) {
+        errors.push(`${file.name}: ${uploadError.message}`);
+      } else {
         const {
           data: { publicUrl },
         } = supabase.storage.from("boat-photos").getPublicUrl(path);
@@ -64,9 +70,44 @@ export function BoatForm({ initialData, isEditing }: BoatFormProps) {
       }
     }
 
+    if (errors.length > 0) {
+      setError(`Upload failed for: ${errors.join(", ")}`);
+    }
+
     setPhotos((prev) => [...prev, ...newPhotos]);
     setUploading(false);
     e.target.value = "";
+  }
+
+  async function resizeImage(file: File, maxWidth: number, quality: number): Promise<File> {
+    return new Promise((resolve) => {
+      const img = new window.Image();
+      img.onload = () => {
+        if (img.width <= maxWidth) {
+          resolve(file);
+          return;
+        }
+        const canvas = document.createElement("canvas");
+        const ratio = maxWidth / img.width;
+        canvas.width = maxWidth;
+        canvas.height = img.height * ratio;
+        const ctx = canvas.getContext("2d")!;
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob(
+          (blob) => {
+            if (blob) {
+              resolve(new File([blob], file.name, { type: file.type }));
+            } else {
+              resolve(file);
+            }
+          },
+          file.type,
+          quality
+        );
+      };
+      img.onerror = () => resolve(file);
+      img.src = URL.createObjectURL(file);
+    });
   }
 
   function removePhoto(index: number) {
