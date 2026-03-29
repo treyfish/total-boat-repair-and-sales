@@ -52,7 +52,7 @@ export function BoatForm({ initialData, isEditing }: BoatFormProps) {
 
     for (const file of Array.from(files)) {
       // Resize large images before upload
-      const processedFile = await resizeImage(file, 1920, 0.85);
+      const processedFile = await resizeImage(file, 2560, 0.95);
       const ext = file.name.split(".").pop();
       const path = `boats/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
 
