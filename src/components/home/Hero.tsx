@@ -19,7 +19,8 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
         current = target;
         clearInterval(timer);
       }
-      el.textContent = Math.floor(current) + suffix;
+      const hasDecimal = target % 1 !== 0;
+      el.textContent = (hasDecimal ? current.toFixed(1) : Math.floor(current).toString()) + suffix;
     }, 30);
     return () => clearInterval(timer);
   }, [target, suffix]);
