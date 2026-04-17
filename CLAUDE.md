@@ -15,6 +15,52 @@
 - Start it in the background before taking any screenshots.
 - If the server is already running, do not start a second instance.
 
+## Preview Workflow (how Trey reviews work)
+Claude runs in a cloud sandbox; Trey's Safari on his Mac cannot reach the
+sandbox's `localhost`. To let Trey view work in his own browser, use this flow
+every time there's something visual to review:
+
+1. Finish the change and commit locally on the designated feature branch.
+2. Push the branch: `git push -u origin <branch-name>`. Pushing to a feature
+   branch **does not** change production — production is whatever is on
+   `main` + Vercel. At most it creates a separate Vercel preview URL.
+3. Do **not** merge to `main` or deploy to Vercel production unless Trey
+   explicitly says so.
+4. Tell Trey to **open Terminal on his Mac and run these exact commands** (give
+   them to him in a copy-pasteable block, not as prose):
+
+   ```bash
+   cd ~/Desktop/total-boat-repair-and-sales   # or wherever the project lives
+   git fetch origin
+   git checkout <branch-name>
+   git pull
+   npm install
+   npm run dev
+   ```
+
+   If the project isn't cloned yet on his Mac, the first block is instead:
+   ```bash
+   cd ~/Desktop
+   git clone https://github.com/treyfish/total-boat-repair-and-sales.git
+   cd total-boat-repair-and-sales
+   git checkout <branch-name>
+   npm install
+   npm run dev
+   ```
+
+5. Tell him which URLs to open once the dev server is ready (e.g. `http://localhost:3000` and `http://localhost:3000/v2`).
+6. Wait for his feedback before iterating.
+
+Rules for this flow:
+- **Always** explicitly say "open Terminal on your Mac and run these commands"
+  — don't assume he knows.
+- **Always** paste the commands in a fenced code block so they're
+  copy-pasteable.
+- **Never** say "view it on localhost:3000" without first walking him through
+  the steps to get the dev server running on his machine.
+- When giving screenshots for comparison, keep doing that — it's still useful
+  for quick feedback — but the authoritative review happens in his browser.
+
 ## Screenshot Workflow
 - Puppeteer auto-caches Chrome in `~/.cache/puppeteer/` on macOS/Linux. Install via `npm install puppeteer` in the project if missing.
 - **Always screenshot from localhost:** `node screenshot.mjs http://localhost:3000`
